@@ -55,39 +55,39 @@ def get_content_type(filename):
             return 'application/octet-stream'
 
 
-# def s3_utils(filepath: str,filename:str,folder:str):
-#     s3_client = boto3.client('s3',
-#         aws_access_key_id='AKIATCKAPGGEFQSPJ3C3',
-#         aws_secret_access_key='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',
-#         region_name='us-east-1'
-#     )
+def s3_utils(filepath: str,filename:str,folder:str):
+    s3_client = boto3.client('s3',
+        aws_access_key_id='AKIATCKAPGGEFQSPJ3C3',
+        aws_secret_access_key='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',
+        region_name='us-east-1'
+    )
     
-#     bucket_name = 'transloom-pdf'
-#     object_key = folder + filename
-#     print(object_key)
+    bucket_name = 'transloom-pdf'
+    object_key = folder + filename
+    print(object_key)
     
     
-#     # Upload file
-#     try:
-#         with open(filepath, 'rb') as file:
-#             s3_client.put_object(
-#                 Bucket=bucket_name,
-#                 Key=object_key,
-#                 Body=file,
-#                 ContentType= get_content_type(filename)
-#             )
-#     except ClientError as e:
-#         print(f"An error occurred: {e}")
-#         return None
+    # Upload file
+    try:
+        with open(filepath, 'rb') as file:
+            s3_client.put_object(
+                Bucket=bucket_name,
+                Key=object_key,
+                Body=file,
+                ContentType= get_content_type(filename)
+            )
+    except ClientError as e:
+        print(f"An error occurred: {e}")
+        return None
 
-#     # Generate URL
-#     try:
-#         url = s3_client.generate_presigned_url('get_object',
-#                                                Params={'Bucket': bucket_name,
-#                                                        'Key': object_key},
-#                                                ExpiresIn=3600)  # URL expires in 1 hour
-#     except ClientError as e:
-#         print(f"An error occurred: {e}")
-#         return e
+    # Generate URL
+    try:
+        url = s3_client.generate_presigned_url('get_object',
+                                               Params={'Bucket': bucket_name,
+                                                       'Key': object_key},
+                                               ExpiresIn=3600)  # URL expires in 1 hour
+    except ClientError as e:
+        print(f"An error occurred: {e}")
+        return e
 
-#     return url
+    return url
