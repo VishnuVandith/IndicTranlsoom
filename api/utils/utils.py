@@ -5,6 +5,8 @@ from fastapi import HTTPException
 import boto3
 from botocore.exceptions import ClientError
 
+
+
 AUDIO_DIRECTORY = "audio_files"
 os.makedirs(AUDIO_DIRECTORY, exist_ok=True)
 
@@ -57,8 +59,8 @@ def get_content_type(filename):
 
 def s3_utils(filepath: str,filename:str,folder:str):
     s3_client = boto3.client('s3',
-        aws_access_key_id='AKIATCKAPGGEFQSPJ3C3',
-        aws_secret_access_key='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',
+        aws_access_key_id=os.getenv('aws_access_key_id'),
+        aws_secret_access_key=os.getenv('aws_secret_access_key'),
         region_name='us-east-1'
     )
     
